@@ -1,22 +1,36 @@
 "use strict";
 
-require("dotenv").config();
+// Only load .env file in development — Render/Vercel inject env vars directly
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 
-// Validate required environment variables on startup.
-const required = ["PORT", "DATABASE_URL", "JWT_SECRET", "JWT_EXPIRES_IN", "EMAIL_FROM", "EMAIL_API_KEY"];
+// Required in all environments
+const required = [
+  "PORT",
+  "DATABASE_URL",
+  "JWT_SECRET",
+  "JWT_EXPIRES_IN",
+  "EMAIL_FROM",
+  "EMAIL_API_KEY",
+];
 
 for (const key of required) {
   if (!process.env[key]) {
     console.error(`[env] FATAL: Missing required environment variable: ${key}`);
-    console.error(`[env] Copy .env.example to .env and fill in the values.`);
+    console.error(`[env] In development: copy .env.example → .env and fill values.`);
+    console.error(`[env] In production: set environment variables in your hosting dashboard.`);
     process.exit(1);
   }
 }
 
-// Warn (don't crash) if no AI providers configured
-const hasAI = process.env.GEMINI_API_KEY || process.env.GROQ_API_KEY || process.env.OLLAMA_BASE_URL;
+// Warn if no AI provider configured
+const hasAI =
+  process.env.GEMINI_API_KEY ||
+  process.env.GROQ_API_KEY   ||
+  process.env.OLLAMA_BASE_URL;
 if (!hasAI) {
-  console.warn("[env] WARNING: No AI provider configured. Quiz generation will not work.");
+  console.warn("[env] WARNING: No AI provider configured. Quiz generation will fall back to question bank only.");
 }
 
 const env = {
@@ -37,15 +51,18 @@ const env = {
 
   // AI — Gemini (primary)
   GEMINI_API_KEY: process.env.GEMINI_API_KEY || "",
-  GEMINI_MODEL:   process.env.GEMINI_MODEL   || "gemini-1.5-flash",
+  GEMINI_MODEL:   process.env.GEMINI_MODEL   || "gemini-flash-latest",
 
   // AI — Groq (fallback #1)
   GROQ_API_KEY: process.env.GROQ_API_KEY || "",
-  GROQ_MODEL:   process.env.GROQ_MODEL   || "llama-3.1-8b-instant",
+  GROQ_MODEL:   process.env.GROQ_MODEL   || "qwen/qwen3.8-27b",
 
-  // AI — Ollama (fallback #2, local)
-  OLLAMA_BASE_URL: process.env.OLLAMA_BASE_URL || "http://localhost:11434",
+  // AI — Ollama (fallback #2, local only — empty string disables it in production)
+  OLLAMA_BASE_URL: process.env.OLLAMA_BASE_URL || "",
   OLLAMA_MODEL:    process.env.OLLAMA_MODEL    || "phi3:mini",
+
+  // Production frontend URL (for CORS)
+  FRONTEND_URL: process.env.FRONTEND_URL || "*",
 };
 
 module.exports = env;

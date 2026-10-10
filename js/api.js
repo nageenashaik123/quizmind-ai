@@ -10,9 +10,23 @@
 // ─────────────────────────────────────────────
 
 // Base URL of the Express backend.
-// In development this is localhost:5000.
-// In production this will be the deployed backend URL.
-const API_BASE_URL = "http://localhost:5000/api";
+// Automatically picks production URL when deployed, localhost in development.
+const API_BASE_URL = (() => {
+  // When running locally via Live Server or file://
+  const isLocal =
+    window.location.hostname === "localhost"       ||
+    window.location.hostname === "127.0.0.1"       ||
+    window.location.hostname === ""                ||
+    window.location.hostname.endsWith(".local");
+
+  if (isLocal) {
+    return "http://localhost:5000/api";
+  }
+
+  // Production: replace with your actual Render backend URL
+  // e.g. "https://quizmind-ai-backend.onrender.com/api"
+  return "https://quizmind-ai-backend.onrender.com/api";
+})();
 
 // ─────────────────────────────────────────────
 // Token helpers

@@ -173,11 +173,10 @@ function selectCount(value) {
   const selected = countTiles[value];
   if (selected) {
     selected.classList.add("selected-count");
+    selected.setAttribute("aria-checked", "true");
     // Tiny bounce on selection
     selected.style.transform = "scale(1.05)";
     setTimeout(() => { selected.style.transform = ""; }, 200);
-  }
-    selected.setAttribute("aria-checked", "true");
   }
 
   updateTimeSummary();
@@ -353,13 +352,14 @@ generateBtn?.addEventListener("click", async () => {
 
     redirectTo(`/client/quiz.html?quizId=${data.data.quizId}`);
   } catch (err) {
-    // Phase 8 — AI not integrated yet: show friendly message
-    if (err.status === 501 || err.status === 404) {
-      showAlert("AI quiz generation will be available in Phase 9. Your configuration has been saved.");
-      // Store config for later
-      sessionStorage.setItem("pendingQuizConfig", JSON.stringify(payload));
-    } else if (err.status === 0) {
-      showAlert("Cannot connect to the server. Please make sure the server is running.");
+    // Handle errors from the AI generation endpoint
+    if (err.status === 0) {
+      showAlert("Cannot connect to the server. Please make sure the server is running on port 5000.");
+    } else if (err.status === 401 || err.status === 403) {
+      showAlert("Your session has expired. Please log in again.");
+      setTimeout(() => redirectTo("/client/login.html"), 1500);
+    } else if (err.status === 503) {
+      showAlert("All AI providers are currently unavailable and no stored questions found. Please try again in a few minutes.");
     } else {
       showAlert(err.message || "Quiz generation failed. Please try again.");
     }

@@ -23,9 +23,8 @@ const API_BASE_URL = (() => {
     return "http://localhost:5000/api";
   }
 
-  // Production: replace with your actual Render backend URL
-  // e.g. "https://quizmind-ai-backend.onrender.com/api"
-  return "https://quizmind-ai-backend.onrender.com/api";
+  // Production: Render backend
+  return "https://quizmind-ai-backend-jsp2.onrender.com/api";
 })();
 
 // ─────────────────────────────────────────────

@@ -156,7 +156,7 @@ function renderAttempts(attempts) {
   list.className = "attempts-list";
 
   attempts.forEach(attempt => {
-    const score     = Math.round(attempt.score);
+    const score     = Math.round(parseFloat(attempt.score) || 0);
     const ringClass = score >= 80 ? "score-ring-high" : score >= 50 ? "score-ring-medium" : "score-ring-low";
     const dateStr   = formatDate(attempt.completed_at);
     const timeStr   = attempt.time_taken_seconds ? formatTime(attempt.time_taken_seconds) : "—";
@@ -225,18 +225,27 @@ function updateSummaryStats(attempts) {
 
   if (attempts.length === 0) {
     ["summaryAvg","summaryBest","summaryQuestions"].forEach(id => {
-      document.getElementById(id).textContent = "—";
+      const el = document.getElementById(id);
+      if (el) el.textContent = "—";
     });
     return;
   }
 
-  const avg  = Math.round(attempts.reduce((s, a) => s + a.score, 0) / attempts.length);
-  const best = Math.round(Math.max(...attempts.map(a => a.score)));
-  const qs   = attempts.reduce((s, a) => s + a.question_count, 0);
+  // Explicitly parse to numbers — PostgreSQL NUMERIC comes back as string
+  const scores = attempts.map(a => parseFloat(a.score) || 0);
+  const counts = attempts.map(a => parseInt(a.question_count, 10) || 0);
 
-  document.getElementById("summaryAvg").textContent       = `${avg}%`;
-  document.getElementById("summaryBest").textContent      = `${best}%`;
-  document.getElementById("summaryQuestions").textContent = qs;
+  const avg  = Math.round(scores.reduce((s, v) => s + v, 0) / scores.length);
+  const best = Math.round(Math.max(...scores));
+  const qs   = counts.reduce((s, v) => s + v, 0);
+
+  const avgEl  = document.getElementById("summaryAvg");
+  const bestEl = document.getElementById("summaryBest");
+  const qsEl   = document.getElementById("summaryQuestions");
+
+  if (avgEl)  avgEl.textContent  = isNaN(avg)  ? "—" : `${avg}%`;
+  if (bestEl) bestEl.textContent = isNaN(best) ? "—" : `${best}%`;
+  if (qsEl)   qsEl.textContent   = qs;
 }
 
 /* ----------------------------------------------------------

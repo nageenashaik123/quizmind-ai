@@ -1,0 +1,451 @@
+/* ============================================================
+   QuizMind AI — Auth Pages CSS
+   Matches reference screenshot exactly:
+   - Centered card on light purple/white background
+   - Logo + app name at top of card
+   - Clean form fields with icon prefixes
+   - Purple CTA buttons
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   Auth page wrapper — full-height centered layout
+   ------------------------------------------------------------ */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, #EEF0FF 0%, #F8F9FF 50%, #F0F4FF 100%);
+  padding: var(--space-6) var(--space-4);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative blobs */
+.auth-page::before {
+  content: '';
+  position: absolute;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(108,92,231,.1) 0%, transparent 70%);
+  top: -100px; right: -100px;
+  pointer-events: none;
+}
+
+.auth-page::after {
+  content: '';
+  position: absolute;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(162,155,254,.08) 0%, transparent 70%);
+  bottom: -80px; left: -80px;
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------
+   Auth card — matches reference (white card, centered)
+   ------------------------------------------------------------ */
+.auth-card-wrapper {
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+  z-index: 1;
+  animation: slideUp .4s ease;
+}
+
+.auth-card {
+  background: #fff;
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8) var(--space-8);
+  box-shadow: 0 8px 40px rgba(108,92,231,.12), 0 2px 12px rgba(0,0,0,.06);
+  border: 1px solid rgba(108,92,231,.08);
+}
+
+/* Logo + brand at top of card — matches reference */
+.auth-brand-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+
+.auth-brand-logo {
+  width: 36px; height: 36px;
+  background: var(--color-primary);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.auth-brand-name {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.auth-brand-name span { color: var(--color-primary); }
+
+/* Card title + subtitle */
+.auth-card-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-1);
+  line-height: var(--line-height-tight);
+}
+
+.auth-card-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-6);
+  line-height: var(--line-height-base);
+}
+
+/* ------------------------------------------------------------
+   Auth form
+   ------------------------------------------------------------ */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Input with icon prefix — matches reference */
+.input-with-icon {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: var(--space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-light);
+  font-size: 1rem;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+}
+
+.input-with-icon .form-input {
+  padding-left: 2.5rem;
+}
+
+.input-with-icon .input-toggle {
+  right: var(--space-3);
+}
+
+/* Alert banner */
+.auth-alert {
+  border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  display: none;
+  margin-bottom: var(--space-2);
+}
+
+.auth-alert.show {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* Remember me + forgot password row */
+.auth-extras {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: calc(-1 * var(--space-2));
+}
+
+.auth-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.auth-checkbox-label input[type="checkbox"] {
+  accent-color: var(--color-primary);
+  width: 15px; height: 15px;
+  cursor: pointer;
+}
+
+.forgot-link {
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+}
+.forgot-link:hover { text-decoration: underline; }
+
+/* Footer link */
+.auth-form-footer {
+  text-align: center;
+  margin-top: var(--space-5);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.auth-form-footer a {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+}
+.auth-form-footer a:hover { text-decoration: underline; }
+
+/* ------------------------------------------------------------
+   Password strength
+   ------------------------------------------------------------ */
+.password-strength { margin-top: var(--space-2); }
+
+.strength-bars {
+  display: flex;
+  gap: var(--space-1);
+  margin-bottom: var(--space-1);
+}
+
+.strength-bar {
+  flex: 1;
+  height: 4px;
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+  transition: background var(--transition-base);
+}
+
+.strength-bar.weak   { background: var(--color-error); }
+.strength-bar.fair   { background: var(--color-warning); }
+.strength-bar.good   { background: var(--color-info); }
+.strength-bar.strong { background: var(--color-success); }
+
+.strength-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+/* ------------------------------------------------------------
+   OTP Verification page — matches reference screenshot #4
+   ------------------------------------------------------------ */
+
+/* Email icon circle at top */
+.otp-icon-circle {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: var(--color-primary-light);
+  border: 2px solid rgba(108,92,231,.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  margin: 0 auto var(--space-5);
+}
+
+.otp-sent-to {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  text-align: center;
+  margin-bottom: var(--space-5);
+  line-height: var(--line-height-base);
+}
+
+.otp-sent-to strong {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* 6-digit OTP boxes — exactly like reference */
+.otp-group {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+  margin-bottom: var(--space-5);
+}
+
+.otp-input {
+  width: 52px; height: 56px;
+  text-align: center;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg);
+  color: var(--color-text);
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+  caret-color: var(--color-primary);
+}
+
+.otp-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-glow);
+  background: #fff;
+}
+
+.otp-input.filled {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.otp-input.error {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px rgba(214,48,49,.1);
+}
+
+/* Resend row */
+.otp-resend {
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-top: var(--space-4);
+}
+
+.otp-resend button {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  padding: 0;
+}
+
+.otp-resend button:hover   { text-decoration: underline; }
+.otp-resend button:disabled{ color: var(--color-text-light); cursor: not-allowed; }
+
+.otp-timer {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+}
+
+/* Back link */
+.auth-back-link {
+  display: block;
+  text-align: center;
+  margin-top: var(--space-4);
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+}
+.auth-back-link:hover { text-decoration: underline; }
+
+/* ------------------------------------------------------------
+   Success state
+   ------------------------------------------------------------ */
+.auth-success-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  text-align: center;
+  padding: var(--space-4) 0;
+}
+
+.auth-success-icon {
+  width: 72px; height: 72px;
+  background: #E8F8F5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.auth-success-state h3 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.auth-success-state p {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+/* ------------------------------------------------------------
+   Responsive
+   ------------------------------------------------------------ */
+@media (max-width: 480px) {
+  .auth-card { padding: var(--space-6) var(--space-5); }
+  .otp-input { width: 44px; height: 50px; font-size: var(--font-size-lg); }
+  .otp-group { gap: var(--space-2); }
+}
+
+/* ══ Phase 17 Polish — Auth pages ══ */
+
+/* Card entrance */
+.auth-card-wrapper {
+  animation: authCardEnter .5s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes authCardEnter {
+  from { opacity:0; transform:translateY(28px) scale(.97); }
+  to   { opacity:1; transform:translateY(0) scale(1); }
+}
+
+/* Form groups staggered */
+.auth-form .form-group {
+  animation: slideInUp .35s ease both;
+  opacity: 0;
+}
+.auth-form .form-group:nth-child(1) { animation-delay:.1s; }
+.auth-form .form-group:nth-child(2) { animation-delay:.17s; }
+.auth-form .form-group:nth-child(3) { animation-delay:.24s; }
+.auth-form .form-group:nth-child(4) { animation-delay:.31s; }
+.auth-form .form-group:nth-child(5) { animation-delay:.38s; }
+
+@keyframes slideInUp {
+  from { opacity:0; transform:translateY(12px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* Submit button entrance */
+.auth-form .btn-primary {
+  animation: slideInUp .35s ease both;
+  animation-delay: .45s;
+  opacity: 0;
+}
+
+/* OTP inputs bounce when filled */
+.otp-input.filled {
+  animation: otpFilled .25s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes otpFilled {
+  from { transform:scale(.9); }
+  to   { transform:scale(1); }
+}
+
+/* Success icon pop */
+.auth-success-icon {
+  animation: successPop .5s cubic-bezier(.34,1.56,.64,1) both;
+  animation-delay:.1s;
+}
+@keyframes successPop {
+  from { transform:scale(0); opacity:0; }
+  to   { transform:scale(1); opacity:1; }
+}
+
+/* Alert slide in */
+.auth-alert.show {
+  animation: alertSlide .25s ease both;
+}
+@keyframes alertSlide {
+  from { opacity:0; transform:translateY(-6px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* Input focus glow transition */
+.form-input {
+  transition: border-color .2s ease, box-shadow .2s ease, background .15s ease;
+}
+
+/* Brand logo pulse on hover */
+.auth-brand-logo {
+  transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s ease;
+}
+.auth-brand-logo:hover {
+  transform: scale(1.1) rotate(-3deg);
+}

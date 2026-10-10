@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Profile — QuizMind AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav style="position:fixed;top:0;left:0;right:0;height:64px;background:#fff;
+    border-bottom:1px solid #E2E8F0;box-shadow:0 1px 0 rgba(0,0,0,.04);
+    display:flex;align-items:center;z-index:1000;" role="navigation">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;height:100%;">
+      <a href="home.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;">
+        <div style="width:32px;height:32px;background:linear-gradient(135deg,#7C3AED,#6C63FF);
+             border-radius:8px;display:flex;align-items:center;justify-content:center;
+             font-size:1rem;color:#fff;">🧠</div>
+        <span style="font-weight:800;font-size:16px;">
+          <span style="color:#0F172A;">QuizMind</span><span style="color:#6C63FF;"> AI</span>
+        </span>
+      </a>
+      <div style="display:flex;align-items:center;gap:4px;background:#F0F2FF;border-radius:50px;padding:4px;">
+        <a href="home.html"      style="padding:7px 14px;border-radius:50px;font-size:13px;font-weight:500;color:#64748B;text-decoration:none;">🏠 Home</a>
+        <a href="dashboard.html" style="padding:7px 14px;border-radius:50px;font-size:13px;font-weight:500;color:#64748B;text-decoration:none;">📊 Dashboard</a>
+        <a href="history.html"   style="padding:7px 14px;border-radius:50px;font-size:13px;font-weight:500;color:#64748B;text-decoration:none;">🕘 History</a>
+      </div>
+      <span></span>
+    </div>
+  </nav>
+
+  <main class="dash-page" role="main">
+    <div class="dash-container" style="max-width:600px;">
+
+      <!-- Loading -->
+      <div id="loadingState" style="text-align:center;padding:80px 0;">
+        <div class="spinner spinner-lg" style="margin:0 auto;"></div>
+        <p style="margin-top:16px;color:#64748B;">Loading profile…</p>
+      </div>
+
+      <!-- Profile card -->
+      <div id="profileContent" style="display:none;" class="animate-fade-in">
+        <h1 style="font-size:24px;font-weight:800;color:#0F172A;margin-bottom:24px;
+          letter-spacing:-.02em;">My Profile</h1>
+
+        <div class="profile-card">
+          <!-- Banner + avatar -->
+          <div class="profile-banner">
+            <div class="profile-avatar-wrap">
+              <div class="profile-avatar" id="profileAvatar" aria-hidden="true">N</div>
+            </div>
+          </div>
+
+          <!-- Info -->
+          <div class="profile-info">
+            <div class="profile-name" id="profileName">—</div>
+            <div class="profile-email" id="profileEmail">—</div>
+
+            <div class="profile-field-row">
+              <div class="profile-field-label">Full Name</div>
+              <div class="profile-field-value" id="profileNameField">—</div>
+            </div>
+            <div class="profile-field-row">
+              <div class="profile-field-label">Email Address</div>
+              <div class="profile-field-value" id="profileEmailField">—</div>
+            </div>
+            <div class="profile-field-row">
+              <div class="profile-field-label">Member Since</div>
+              <div class="profile-field-value" id="profileJoined">—</div>
+            </div>
+          </div>
+
+          <!-- Stats grid -->
+          <div class="profile-stats-grid" aria-label="Your statistics">
+            <div class="profile-stat">
+              <div class="profile-stat-value" id="pstatQuizzes">—</div>
+              <div class="profile-stat-label">Quizzes</div>
+            </div>
+            <div class="profile-stat">
+              <div class="profile-stat-value" id="pstatAvg">—</div>
+              <div class="profile-stat-label">Avg Score</div>
+            </div>
+            <div class="profile-stat">
+              <div class="profile-stat-value" id="pstatBest">—</div>
+              <div class="profile-stat-label">Best Score</div>
+            </div>
+            <div class="profile-stat">
+              <div class="profile-stat-value" id="pstatQuestions">—</div>
+              <div class="profile-stat-label">Questions</div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="profile-actions">
+            <a href="dashboard.html" style="display:flex;align-items:center;justify-content:center;
+              gap:8px;padding:12px;background:linear-gradient(135deg,#7C3AED,#6C63FF);
+              color:#fff;border-radius:12px;font-size:14px;font-weight:600;text-decoration:none;
+              box-shadow:0 3px 10px rgba(108,92,231,.25);">
+              📊 View Dashboard
+            </a>
+            <a href="history.html" style="display:flex;align-items:center;justify-content:center;
+              gap:8px;padding:12px;background:#fff;color:#0F172A;
+              border:1.5px solid #E8EAF6;border-radius:12px;font-size:14px;font-weight:600;
+              text-decoration:none;transition:border-color .15s;">
+              🕘 Quiz History
+            </a>
+            <button id="logoutBtn" style="display:flex;align-items:center;justify-content:center;
+              gap:8px;padding:12px;background:#FEF2F2;color:#DC2626;
+              border:1.5px solid #FECACA;border-radius:12px;font-size:14px;font-weight:600;
+              cursor:pointer;width:100%;transition:background .15s;"
+              aria-label="Logout">
+              🚪 Logout
+            </button>
+          </div>
+
+        </div><!-- /profile-card -->
+      </div><!-- /profileContent -->
+
+    </div>
+  </main>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verify Email — QuizMind AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/auth.css" />
+</head>
+<body>
+
+  <div class="auth-page">
+    <div class="auth-card-wrapper">
+      <div class="auth-card">
+
+        <!-- Verify form -->
+        <div id="verifyView">
+
+          <!-- Email icon circle -->
+          <div class="otp-icon-circle" aria-hidden="true">✉️</div>
+
+          <h1 class="auth-card-title" style="text-align:center;">Verify Your Email</h1>
+
+          <div class="otp-sent-to">
+            We have sent a 6-digit code to<br />
+            <strong id="otpEmailDisplay">your email address</strong>
+          </div>
+
+          <!-- Alert -->
+          <div id="authAlert" class="auth-alert" role="alert" aria-live="polite"></div>
+
+          <form id="otpForm" novalidate>
+
+            <!-- 6 OTP boxes — matches reference exactly (numbered 1–6) -->
+            <div class="otp-group" role="group" aria-label="6-digit verification code">
+              <input class="otp-input" type="text" inputmode="numeric" pattern="[0-9]"
+                maxlength="1" id="otp1" aria-label="Digit 1" autocomplete="one-time-code" />
+              <input class="otp-input" type="text" inputmode="numeric" pattern="[0-9]"
+                maxlength="1" id="otp2" aria-label="Digit 2" />
+              <input class="otp-input" type="text" inputmode="numeric" pattern="[0-9]"
+                maxlength="1" id="otp3" aria-label="Digit 3" />
+              <input class="otp-input" type="text" inputmode="numeric" pattern="[0-9]"
+                maxlength="1" id="otp4" aria-label="Digit 4" />
+              <input class="otp-input" type="text" inputmode="numeric" pattern="[0-9]"
+                maxlength="1" id="otp5" aria-label="Digit 5" />
+              <input class="otp-input" type="text" inputmode="numeric" pattern="[0-9]"
+                maxlength="1" id="otp6" aria-label="Digit 6" />
+            </div>
+
+            <span class="form-error" id="otpError" role="alert"
+              style="display:block;text-align:center;margin-bottom:var(--space-3);"></span>
+
+            <button type="submit" class="btn btn-primary btn-full" id="submitBtn">
+              Verify
+            </button>
+
+          </form>
+
+          <div class="otp-resend" aria-live="polite">
+            Resend code in
+            <button type="button" id="resendBtn" disabled>Resend OTP</button>
+            <span id="resendTimer" class="otp-timer"></span>
+          </div>
+
+          <a href="register.html" class="auth-back-link">Back</a>
+
+        </div>
+
+        <!-- Success view -->
+        <div id="successView" style="display:none;">
+          <div class="auth-success-state">
+            <div class="auth-success-icon" aria-hidden="true">✅</div>
+            <h2>Email Verified!</h2>
+            <p>Your account is ready. You can now log in and start practising.</p>
+            <a href="login.html" class="btn btn-primary btn-full" style="margin-top:var(--space-2);">
+              Continue to Login
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+</body>
+</html>

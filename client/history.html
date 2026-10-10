@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz History — QuizMind AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/history.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav style="position:fixed;top:0;left:0;right:0;height:64px;background:#fff;
+    border-bottom:1px solid #E2E8F0;box-shadow:0 1px 0 rgba(0,0,0,.04);
+    display:flex;align-items:center;z-index:1000;" role="navigation">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;height:100%;">
+      <a href="home.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;">
+        <div style="width:32px;height:32px;background:linear-gradient(135deg,#7C3AED,#6C63FF);
+             border-radius:8px;display:flex;align-items:center;justify-content:center;
+             font-size:1rem;color:#fff;" aria-hidden="true">🧠</div>
+        <span style="font-weight:800;font-size:16px;">
+          <span style="color:#0F172A;">QuizMind</span><span style="color:#6C63FF;"> AI</span>
+        </span>
+      </a>
+      <div style="display:flex;align-items:center;gap:4px;background:#F0F2FF;border-radius:50px;padding:4px;">
+        <a href="home.html"      style="padding:7px 14px;border-radius:50px;font-size:13px;font-weight:500;color:#64748B;text-decoration:none;">🏠 Home</a>
+        <a href="dashboard.html" style="padding:7px 14px;border-radius:50px;font-size:13px;font-weight:500;color:#64748B;text-decoration:none;">📊 Dashboard</a>
+        <a href="history.html"   style="padding:7px 14px;border-radius:50px;font-size:13px;font-weight:700;color:#6C63FF;background:#fff;box-shadow:0 1px 4px rgba(108,92,231,.15);text-decoration:none;">🕘 History</a>
+      </div>
+      <a href="home.html" style="font-size:13px;font-weight:600;color:#6C63FF;text-decoration:none;">
+        + Start a Quiz
+      </a>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="history-page" role="main">
+    <div class="history-container">
+
+      <!-- Page header -->
+      <div class="history-header">
+        <div>
+          <h1 class="history-title">Quiz History</h1>
+          <p class="history-subtitle">View your past quiz attempts and track your progress.</p>
+        </div>
+        <a href="home.html" class="btn-attempt btn-attempt-primary" style="align-self:flex-start;">
+          ＋ New Quiz
+        </a>
+      </div>
+
+      <!-- Summary stats -->
+      <div class="history-summary" id="summaryStat" aria-label="History summary">
+        <div class="history-stat">
+          <div class="history-stat-value" id="summaryTotal">—</div>
+          <div class="history-stat-label">Total Quizzes</div>
+        </div>
+        <div class="history-stat">
+          <div class="history-stat-value" id="summaryAvg">—</div>
+          <div class="history-stat-label">Avg Score</div>
+        </div>
+        <div class="history-stat">
+          <div class="history-stat-value" id="summaryBest">—</div>
+          <div class="history-stat-label">Best Score</div>
+        </div>
+        <div class="history-stat">
+          <div class="history-stat-value" id="summaryQuestions">—</div>
+          <div class="history-stat-label">Questions Solved</div>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="filters-bar" role="search" aria-label="Filter quiz history">
+
+        <div class="filter-group">
+          <label class="filter-label" for="filterSubject">Subject</label>
+          <select class="filter-select" id="filterSubject" aria-label="Filter by subject">
+            <option value="">All Subjects</option>
+            <!-- Populated by JS -->
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label" for="filterDifficulty">Difficulty</label>
+          <select class="filter-select" id="filterDifficulty" aria-label="Filter by difficulty">
+            <option value="">All Difficulties</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label" for="filterDateFrom">From</label>
+          <input class="filter-input" type="date" id="filterDateFrom" aria-label="Filter from date" />
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label" for="filterDateTo">To</label>
+          <input class="filter-input" type="date" id="filterDateTo" aria-label="Filter to date" />
+        </div>
+
+        <div class="filter-actions">
+          <button class="btn-filter-apply" id="applyFiltersBtn">Apply</button>
+          <button class="btn-filter-clear" id="clearFiltersBtn">Clear</button>
+        </div>
+
+      </div>
+
+      <!-- Active filter badges -->
+      <div class="active-filters" id="activeFilters" aria-live="polite"></div>
+
+      <!-- Loading skeletons -->
+      <div id="skeletonList" aria-hidden="true">
+        <div class="attempts-list">
+          <div class="attempt-skeleton">
+            <div class="skeleton sk-circle"></div>
+            <div class="sk-body">
+              <div class="skeleton sk-title"></div>
+              <div class="skeleton sk-meta"></div>
+            </div>
+          </div>
+          <div class="attempt-skeleton">
+            <div class="skeleton sk-circle"></div>
+            <div class="sk-body">
+              <div class="skeleton sk-title"></div>
+              <div class="skeleton sk-meta"></div>
+            </div>
+          </div>
+          <div class="attempt-skeleton">
+            <div class="skeleton sk-circle"></div>
+            <div class="sk-body">
+              <div class="skeleton sk-title"></div>
+              <div class="skeleton sk-meta"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Attempts list -->
+      <div id="attemptsList" style="display:none;" aria-label="Quiz attempt list" aria-live="polite">
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- Empty state -->
+      <div class="history-empty" id="emptyState" style="display:none;">
+        <div class="history-empty-icon" aria-hidden="true">📭</div>
+        <h3 id="emptyTitle">No quizzes found</h3>
+        <p id="emptyMsg">You haven't taken any quizzes yet. Start practising!</p>
+        <a href="home.html" class="btn-attempt btn-attempt-primary">
+          Start Your First Quiz →
+        </a>
+      </div>
+
+      <!-- Error state -->
+      <div id="errorState" style="display:none;" class="history-empty" role="alert">
+        <div class="history-empty-icon" aria-hidden="true">⚠️</div>
+        <h3>Could not load history</h3>
+        <p id="errorMsg">Please make sure the server is running.</p>
+        <button class="btn-attempt btn-attempt-primary" id="retryBtn">Try Again</button>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination" id="pagination" style="display:none;" role="navigation" aria-label="Pagination">
+        <button class="page-btn" id="prevPageBtn" disabled>← Previous</button>
+        <span class="page-info" id="pageInfo"></span>
+        <button class="page-btn" id="nextPageBtn" disabled>Next →</button>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/history.js"></script>
+</body>
+</html>

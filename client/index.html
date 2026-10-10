@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuizMind AI — Your Learning Partner for Success</title>
+  <meta name="description" content="AI-powered quizzes for aptitude, reasoning, verbal ability and technical subjects." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    /* ── Landing page specific ── */
+
+    /* NAVBAR — public version */
+    .landing-navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--navbar-height);
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--color-border);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+    }
+
+    .landing-navbar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .landing-nav-links {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .landing-nav-link {
+      padding: var(--space-2) var(--space-4);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-muted);
+      border-radius: var(--radius-lg);
+      transition: color var(--transition-fast), background var(--transition-fast);
+      text-decoration: none;
+    }
+
+    .landing-nav-link:hover {
+      color: var(--color-primary);
+      background: var(--color-primary-light);
+      text-decoration: none;
+    }
+
+    .landing-nav-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    /* HERO */
+    .hero-section {
+      min-height: 100vh;
+      padding-top: var(--navbar-height);
+      background: linear-gradient(145deg, #EEF0FF 0%, #F8F9FF 60%, #F0F4FF 100%);
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(108,92,231,.08) 0%, transparent 65%);
+      top: -100px; right: -100px;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-16);
+      align-items: center;
+      padding: var(--space-12) 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Pill badge */
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      background: var(--color-primary-light);
+      border: 1px solid rgba(108,92,231,.2);
+      border-radius: var(--radius-full);
+      padding: var(--space-1) var(--space-4);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-primary);
+      margin-bottom: var(--space-5);
+    }
+
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--color-text);
+      margin-bottom: var(--space-5);
+    }
+
+    .hero-title .highlight {
+      color: var(--color-primary);
+    }
+
+    .hero-subtitle {
+      font-size: var(--font-size-base);
+      color: var(--color-text-muted);
+      line-height: var(--line-height-base);
+      margin-bottom: var(--space-8);
+      max-width: 460px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: var(--space-3);
+      margin-bottom: var(--space-10);
+    }
+
+    /* Feature checklist */
+    .hero-features {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .hero-feature-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-muted);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .hero-feature-check {
+      width: 20px; height: 20px;
+      background: var(--color-primary-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary);
+      font-size: 0.7rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* Hero right — illustration placeholder */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-illustration {
+      width: 100%;
+      max-width: 500px;
+      background: linear-gradient(135deg, var(--color-primary-light) 0%, #E8E6FF 100%);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-8);
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Floating quiz card inside illustration */
+    .hero-quiz-card {
+      background: #fff;
+      border-radius: var(--radius-xl);
+      padding: var(--space-5);
+      box-shadow: var(--shadow-md);
+      margin-bottom: var(--space-4);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .hero-quiz-subject {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .hero-quiz-question {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text);
+      margin-bottom: var(--space-3);
+      line-height: 1.4;
+    }
+
+    .hero-quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .hero-option {
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      border: 1.5px solid var(--color-border);
+      color: var(--color-text-muted);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .hero-option.correct {
+      border-color: var(--color-success);
+      background: #E8F8F5;
+      color: var(--color-success);
+    }
+
+    .hero-option-letter {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .hero-option.correct .hero-option-letter {
+      background: var(--color-success);
+      color: #fff;
+    }
+
+    /* Progress stat chips below quiz card */
+    .hero-stats-row {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .hero-stat-chip {
+      flex: 1;
+      background: #fff;
+      border-radius: var(--radius-lg);
+      padding: var(--space-3) var(--space-4);
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+    }
+
+    .hero-stat-chip .value {
+      font-size: var(--font-size-lg);
+      font-weight: 800;
+      color: var(--color-primary);
+      display: block;
+    }
+
+    .hero-stat-chip .label {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-muted);
+      margin-top: 2px;
+    }
+
+    /* FEATURES SECTION */
+    .features-section {
+      padding: var(--space-16) 0;
+      background: #fff;
+    }
+
+    .features-header {
+      text-align: center;
+      margin-bottom: var(--space-12);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+
+    .feature-card {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-fast);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-primary);
+    }
+
+    .feature-icon {
+      width: 48px; height: 48px;
+      border-radius: var(--radius-lg);
+      background: var(--color-primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: var(--space-4);
+    }
+
+    .feature-card h3 {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text);
+      margin-bottom: var(--space-2);
+    }
+
+    .feature-card p {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-muted);
+      line-height: var(--line-height-base);
+    }
+
+    /* HOW IT WORKS */
+    .how-section {
+      padding: var(--space-16) 0;
+      background: linear-gradient(145deg, #EEF0FF 0%, #F8F9FF 100%);
+    }
+
+    .how-header {
+      text-align: center;
+      margin-bottom: var(--space-12);
+    }
+
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-6);
+    }
+
+    .how-step {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .how-step-num {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      color: #fff;
+      font-size: var(--font-size-lg);
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px var(--color-primary-glow);
+    }
+
+    .how-step h3 {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text);
+    }
+
+    .how-step p {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-muted);
+      line-height: var(--line-height-base);
+    }
+
+    /* CTA */
+    .cta-section {
+      padding: var(--space-16) 0;
+      background: var(--color-primary);
+      text-align: center;
+      color: #fff;
+    }
+
+    .cta-section h2 {
+      font-size: var(--font-size-3xl);
+      font-weight: 800;
+      margin-bottom: var(--space-4);
+      letter-spacing: -0.02em;
+    }
+
+    .cta-section p {
+      font-size: var(--font-size-lg);
+      opacity: .88;
+      margin-bottom: var(--space-8);
+    }
+
+    .btn-white {
+      background: #fff;
+      color: var(--color-primary);
+      border-color: #fff;
+    }
+    .btn-white:hover { background: #F0F0FF; box-shadow: 0 4px 16px rgba(0,0,0,.2); text-decoration: none; }
+
+    .btn-outline-white {
+      background: transparent;
+      color: #fff;
+      border-color: rgba(255,255,255,.6);
+    }
+    .btn-outline-white:hover { background: rgba(255,255,255,.12); border-color: #fff; text-decoration: none; }
+
+    /* FOOTER */
+    .landing-footer {
+      background: var(--color-text);
+      color: #94A3B8;
+      padding: var(--space-8) 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      color: #fff;
+      font-weight: var(--font-weight-semibold);
+      text-decoration: none;
+    }
+
+    .footer-copy { font-size: var(--font-size-sm); }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .how-grid      { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+        text-align: center;
+      }
+      .hero-title   { font-size: 2.25rem; }
+      .hero-actions { justify-content: center; }
+      .hero-features{ align-items: center; }
+      .hero-visual  { order: -1; }
+      .features-grid{ grid-template-columns: 1fr; }
+      .how-grid     { grid-template-columns: repeat(2, 1fr); }
+      .landing-nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="landing-navbar" role="navigation">
+    <div class="container">
+      <a href="index.html" class="navbar-brand">
+        <span class="auth-brand-logo" style="width:28px;height:28px;font-size:.9rem;">🧠</span>
+        <span><span class="brand-text-main">QuizMind</span> <span class="brand-text-accent">AI</span></span>
+      </a>
+      <div class="landing-nav-links" role="menubar">
+        <a href="#features"  class="landing-nav-link">Features</a>
+        <a href="#how"       class="landing-nav-link">How It Works</a>
+        <a href="#about"     class="landing-nav-link">About</a>
+      </div>
+      <div class="landing-nav-actions">
+        <a href="login.html"    class="btn btn-ghost btn-sm">Login</a>
+        <a href="register.html" class="btn btn-primary btn-sm">Sign Up</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero-section" aria-labelledby="heroTitle">
+    <div class="container">
+      <div class="hero-inner">
+
+        <!-- Left copy -->
+        <div>
+          <div class="hero-badge">🎯 Practice Smarter with AI</div>
+          <h1 class="hero-title" id="heroTitle">
+            Your Learning<br />
+            Partner for <span class="highlight">Success</span>
+          </h1>
+          <p class="hero-subtitle">
+            AI-powered quizzes for aptitude, reasoning, verbal ability and
+            technical subjects. Practice, learn and improve with personalised insights.
+          </p>
+          <div class="hero-actions">
+            <a href="register.html" class="btn btn-primary btn-lg">Get Started</a>
+            <a href="#how"          class="btn btn-outline btn-lg">Learn More</a>
+          </div>
+          <div class="hero-features" aria-label="Key features">
+            <div class="hero-feature-item">
+              <span class="hero-feature-check" aria-hidden="true">✓</span>
+              Practice
+            </div>
+            <div class="hero-feature-item">
+              <span class="hero-feature-check" aria-hidden="true">✓</span>
+              Track Progress
+            </div>
+            <div class="hero-feature-item">
+              <span class="hero-feature-check" aria-hidden="true">✓</span>
+              Improve
+            </div>
+            <div class="hero-feature-item">
+              <span class="hero-feature-check" aria-hidden="true">✓</span>
+              Achieve Goals
+            </div>
+          </div>
+        </div>
+
+        <!-- Right illustration -->
+        <div class="hero-visual" aria-hidden="true">
+          <div class="hero-illustration">
+            <div class="hero-quiz-card">
+              <div class="hero-quiz-subject">💻 Computer Networks · Question 4/15</div>
+              <div class="hero-quiz-question">
+                Which protocol assigns IP addresses dynamically?
+              </div>
+              <div class="hero-quiz-options">
+                <div class="hero-option">
+                  <span class="hero-option-letter">A</span> HTTP
+                </div>
+                <div class="hero-option correct">
+                  <span class="hero-option-letter">B</span> DHCP
+                </div>
+                <div class="hero-option">
+                  <span class="hero-option-letter">C</span> FTP
+                </div>
+                <div class="hero-option">
+                  <span class="hero-option-letter">D</span> SMTP
+                </div>
+              </div>
+            </div>
+            <div class="hero-stats-row">
+              <div class="hero-stat-chip">
+                <span class="value">25+</span>
+                <span class="label">Subjects</span>
+              </div>
+              <div class="hero-stat-chip">
+                <span class="value">AI</span>
+                <span class="label">Generated</span>
+              </div>
+              <div class="hero-stat-chip">
+                <span class="value">86%</span>
+                <span class="label">Avg Score</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features-section" id="features" aria-labelledby="featuresTitle">
+    <div class="container">
+      <div class="features-header">
+        <div class="section-label">Why QuizMind AI</div>
+        <h2 class="section-title" id="featuresTitle">Everything you need to ace your exams</h2>
+        <p class="section-subtitle">Built for students who want more than just practice questions.</p>
+      </div>
+      <div class="features-grid" role="list">
+        <div class="feature-card" role="listitem">
+          <div class="feature-icon" aria-hidden="true">🤖</div>
+          <h3>AI Generated Quizzes</h3>
+          <p>Every quiz is freshly generated by AI — no repeated questions, no static banks.</p>
+        </div>
+        <div class="feature-card" role="listitem">
+          <div class="feature-icon" aria-hidden="true">🎯</div>
+          <h3>Personalised Practice</h3>
+          <p>Choose your subject, difficulty and question count. AI tailors every quiz to your settings.</p>
+        </div>
+        <div class="feature-card" role="listitem">
+          <div class="feature-icon" aria-hidden="true">📈</div>
+          <h3>Performance Analytics</h3>
+          <p>Track scores by subject and difficulty. Spot weak areas and measure improvement over time.</p>
+        </div>
+        <div class="feature-card" role="listitem">
+          <div class="feature-icon" aria-hidden="true">📖</div>
+          <h3>Detailed Answer Review</h3>
+          <p>Review every question after the quiz with correct answers and AI explanations.</p>
+        </div>
+        <div class="feature-card" role="listitem">
+          <div class="feature-icon" aria-hidden="true">⏱</div>
+          <h3>Timed Quiz Mode</h3>
+          <p>Enable timer mode with automatic difficulty-based time limits per question.</p>
+        </div>
+        <div class="feature-card" role="listitem">
+          <div class="feature-icon" aria-hidden="true">🏆</div>
+          <h3>Progress Tracking</h3>
+          <p>Dashboard with subject-wise performance, weak areas and improvement trends.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section" id="how" aria-labelledby="howTitle">
+    <div class="container">
+      <div class="how-header">
+        <div class="section-label">Simple Process</div>
+        <h2 class="section-title" id="howTitle">How it works</h2>
+        <p class="section-subtitle">From signup to your first AI quiz in under 2 minutes.</p>
+      </div>
+      <div class="how-grid" role="list">
+        <div class="how-step" role="listitem">
+          <div class="how-step-num" aria-label="Step 1">1</div>
+          <h3>Create Account</h3>
+          <p>Register with email and verify with a one-time OTP.</p>
+        </div>
+        <div class="how-step" role="listitem">
+          <div class="how-step-num" aria-label="Step 2">2</div>
+          <h3>Choose Subject</h3>
+          <p>Pick from 4 domains and 25+ subjects.</p>
+        </div>
+        <div class="how-step" role="listitem">
+          <div class="how-step-num" aria-label="Step 3">3</div>
+          <h3>Take AI Quiz</h3>
+          <p>Configure difficulty and count. AI generates a fresh quiz instantly.</p>
+        </div>
+        <div class="how-step" role="listitem">
+          <div class="how-step-num" aria-label="Step 4">4</div>
+          <h3>Track Progress</h3>
+          <p>Review answers and check your dashboard to improve.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" aria-labelledby="ctaTitle">
+    <div class="container">
+      <h2 id="ctaTitle">Ready to start practising?</h2>
+      <p>Join now and take your first AI-generated quiz in minutes.</p>
+      <div style="display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap;">
+        <a href="register.html" class="btn btn-white btn-lg">Create Free Account</a>
+        <a href="login.html"    class="btn btn-outline-white btn-lg">Already have an account?</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="landing-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <a href="index.html" class="footer-brand">
+          <span>🧠</span> QuizMind AI
+        </a>
+        <p class="footer-copy">&copy; 2026 QuizMind AI — Practice Smarter. Improve Faster.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

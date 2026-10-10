@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home — QuizMind AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/home.css" />
+  <style>
+    /* ════════════════════════════════════════
+       ANIMATIONS
+    ════════════════════════════════════════ */
+    @keyframes slideInDown {
+      from { opacity:0; transform:translateY(-20px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    @keyframes slideInUp {
+      from { opacity:0; transform:translateY(24px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    @keyframes slideInLeft {
+      from { opacity:0; transform:translateX(-24px); }
+      to   { opacity:1; transform:translateX(0); }
+    }
+    @keyframes slideInRight {
+      from { opacity:0; transform:translateX(24px); }
+      to   { opacity:1; transform:translateX(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity:0; }
+      to   { opacity:1; }
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0px);  }
+      50%      { transform: translateY(-8px); }
+    }
+    @keyframes floatSlow {
+      0%,100% { transform: translateY(0px);  }
+      50%      { transform: translateY(-5px); }
+    }
+    @keyframes pulse {
+      0%,100% { transform: scale(1); }
+      50%      { transform: scale(1.05); }
+    }
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position:-200% 0; }
+    }
+    @keyframes countUp {
+      from { opacity:0; transform:translateY(10px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    @keyframes chipFloat1 {
+      0%,100% { transform:translate(0,0); }
+      50%      { transform:translate(3px,-6px); }
+    }
+    @keyframes chipFloat2 {
+      0%,100% { transform:translate(0,0); }
+      50%      { transform:translate(-3px,-8px); }
+    }
+    @keyframes chipFloat3 {
+      0%,100% { transform:translate(0,0); }
+      50%      { transform:translate(-4px,-5px); }
+    }
+    @keyframes chipFloat4 {
+      0%,100% { transform:translate(0,0); }
+      50%      { transform:translate(4px,-7px); }
+    }
+    @keyframes sparkle {
+      0%,100% { opacity:.3; transform:scale(.7) rotate(0deg); }
+      50%      { opacity:1;  transform:scale(1.2) rotate(180deg); }
+    }
+    @keyframes trophyBounce {
+      0%,100% { transform:translateY(0) rotate(0deg); }
+      25%      { transform:translateY(-10px) rotate(-5deg); }
+      75%      { transform:translateY(-5px) rotate(5deg); }
+    }
+
+    /* ── Chip animations ── */
+    .chip-practice { animation: chipFloat1 3.5s ease-in-out infinite !important; }
+    .chip-learn     { animation: chipFloat2 4.0s ease-in-out infinite !important; animation-delay:.5s; }
+    .chip-track     { animation: chipFloat3 3.8s ease-in-out infinite !important; animation-delay:.9s; }
+    .chip-achieve   { animation: chipFloat4 4.2s ease-in-out infinite !important; animation-delay:.3s; }
+    .hero-sparkle   { animation: sparkle 2s ease-in-out infinite !important; }
+    .sparkle-1      { animation-delay:0s !important; }
+    .sparkle-2      { animation-delay:.7s !important; }
+    .sparkle-3      { animation-delay:1.3s !important; }
+    .hero-bulb      { animation: float 3s ease-in-out infinite !important; }
+    .hero-student   { animation: floatSlow 4s ease-in-out infinite !important; }
+    .motiv-trophy   { animation: trophyBounce 2.5s ease-in-out infinite !important; }
+
+    /* ── Page entrance animations ── */
+    .anim-nav      { animation: slideInDown .5s ease both; }
+    .anim-hero     { animation: slideInUp   .6s ease both; animation-delay:.1s; }
+    .anim-domains  { animation: slideInUp   .6s ease both; animation-delay:.25s; }
+    .anim-sidebar  { animation: slideInRight .6s ease both; animation-delay:.15s; }
+
+    /* ── Domain card entrance ── */
+    .domain-card   { opacity:0; animation: slideInUp .5s ease forwards; }
+    .domain-card:nth-child(1) { animation-delay:.05s; }
+    .domain-card:nth-child(2) { animation-delay:.12s; }
+    .domain-card:nth-child(3) { animation-delay:.19s; }
+    .domain-card:nth-child(4) { animation-delay:.26s; }
+
+    /* ── Sidebar stat entrance ── */
+    .sstat { animation: countUp .5s ease both; }
+    .sstat:nth-child(1) { animation-delay:.3s; }
+    .sstat:nth-child(2) { animation-delay:.4s; }
+    .sstat:nth-child(3) { animation-delay:.5s; }
+    .sstat:nth-child(4) { animation-delay:.6s; }
+
+    /* ── Sidebar welcome ── */
+    .sidebar-welcome    { animation: slideInRight .55s ease both; animation-delay:.2s; }
+    .continue-card      { animation: slideInRight .55s ease both; animation-delay:.3s; }
+    .motivational-card  { animation: slideInRight .55s ease both; animation-delay:.4s; }
+
+    /* ── Hero card quote style ── */
+    .hero-quote {
+      margin-top: 12px;
+      padding: 12px 16px;
+      background: rgba(108,92,231,.07);
+      border-left: 3px solid #6C63FF;
+      border-radius: 0 10px 10px 0;
+      font-size: 13px;
+      color: #475569;
+      line-height: 1.6;
+      font-style: italic;
+      animation: fadeIn .8s ease both;
+      animation-delay: .5s;
+      opacity: 0;
+    }
+
+    .hero-quote strong {
+      display: block;
+      font-style: normal;
+      font-weight: 700;
+      color: #6C63FF;
+      font-size: 12px;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    /* ── Welcome name highlight ── */
+    .welcome-user-name {
+      background: linear-gradient(135deg, #7C3AED, #6C63FF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 800;
+    }
+
+    /* ── Dropdown polish ── */
+    .user-dropdown-menu {
+      animation: slideInDown .2s ease both;
+    }
+
+    /* ── Nav trigger with real name ── */
+    .user-trigger-name {
+      font-weight: 600;
+      font-size: 13px;
+      color: #0F172A;
+      max-width: 120px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* ── Motivational card without button ── */
+    .motiv-quote-line {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(108,92,231,.6);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-top: 8px;
+    }
+
+    /* ── Hover lift for stat tiles ── */
+    .sstat {
+      transition: transform .2s ease, box-shadow .2s ease;
+      cursor: default;
+    }
+    .sstat:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 18px rgba(108,92,231,.15);
+    }
+
+    /* ── Domain card hover glow ── */
+    .domain-card { transition: transform .25s ease, box-shadow .25s ease, border-color .15s ease !important; }
+    .domain-card:hover {
+      transform: translateY(-5px) !important;
+      box-shadow: 0 12px 30px rgba(108,92,231,.18) !important;
+    }
+
+    /* ── Subject card hover ── */
+    .subject-card { transition: transform .2s ease, box-shadow .2s ease, border-color .15s ease !important; }
+    .subject-card:hover { transform: translateY(-3px) !important; }
+
+    /* Mobile nav */
+    @media (max-width: 768px) {
+      #mobileToggle { display: flex !important; }
+      #navBody {
+        display: none;
+        position: absolute;
+        top: 64px; left: 0; right: 0;
+        background: #fff;
+        flex-direction: column;
+        padding: 16px;
+        border-bottom: 1px solid #E2E8F0;
+        box-shadow: 0 4px 12px rgba(0,0,0,.08);
+        gap: 12px;
+      }
+      #navBody.open { display: flex !important; }
+      .nav-center { flex-direction: column; background: none; border-radius: 0; }
+      .nav-pill   { width: 100%; }
+      .nav-right  { flex-direction: column; align-items: flex-start; width: 100%; }
+      #navAuthButtons { width: 100%; }
+      .btn-nav-login, .btn-nav-register { flex: 1; justify-content: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body style="background:#F7F9FF;">
+
+  <!-- ═══════════════════════════════════════
+       NAVBAR — Logo | Home Dashboard History | User(name)▼ | Login | Register
+  ═══════════════════════════════════════ -->
+  <nav class="anim-nav" style="
+    position:fixed; top:0; left:0; right:0; height:64px;
+    background:rgba(255,255,255,.96); backdrop-filter:blur(10px);
+    border-bottom:1px solid #E2E8F0;
+    box-shadow:0 1px 0 rgba(0,0,0,.04);
+    display:flex; align-items:center; z-index:1000;
+  " role="navigation" aria-label="Main navigation">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;height:100%;">
+
+      <!-- Brand -->
+      <a href="home.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;" aria-label="QuizMind AI home">
+        <div style="width:32px;height:32px;background:linear-gradient(135deg,#7C3AED,#6C63FF);
+             border-radius:8px;display:flex;align-items:center;justify-content:center;
+             font-size:1rem;color:#fff;box-shadow:0 3px 10px rgba(108,92,231,.3);"
+             aria-hidden="true">🧠</div>
+        <span style="font-weight:800;font-size:16px;letter-spacing:-.01em;">
+          <span style="color:#0F172A;">QuizMind</span>
+          <span style="color:#6C63FF;"> AI</span>
+        </span>
+      </a>
+
+      <!-- Mobile toggle -->
+      <button id="mobileToggle" aria-label="Toggle menu" aria-expanded="false"
+        style="display:none;flex-direction:column;gap:5px;background:none;border:none;padding:8px;cursor:pointer;"
+        onclick="document.getElementById('navBody').classList.toggle('open');this.setAttribute('aria-expanded',document.getElementById('navBody').classList.contains('open'));">
+        <span style="display:block;width:22px;height:2px;background:#334155;border-radius:2px;"></span>
+        <span style="display:block;width:22px;height:2px;background:#334155;border-radius:2px;"></span>
+        <span style="display:block;width:22px;height:2px;background:#334155;border-radius:2px;"></span>
+      </button>
+
+      <!-- Nav body -->
+      <div id="navBody" style="display:flex;align-items:center;gap:12px;">
+
+        <!-- Center nav pills -->
+        <nav class="nav-center" role="menubar" aria-label="Main menu">
+          <a href="home.html"      class="nav-pill active" role="menuitem">🏠 Home</a>
+          <a href="dashboard.html" class="nav-pill"        role="menuitem">📊 Dashboard</a>
+          <a href="history.html"   class="nav-pill"        role="menuitem">🕘 History</a>
+        </nav>
+
+        <!-- Right -->
+        <div class="nav-right">
+
+          <!-- User dropdown — shows real name, only Email + Profile + Logout -->
+          <div class="user-dropdown-wrap" id="userDropdownWrap" style="display:none;">
+            <button class="user-trigger" id="userTrigger"
+              aria-haspopup="true" aria-expanded="false" aria-label="User menu">
+              <span aria-hidden="true">👤</span>
+              <!-- Real name filled by JS -->
+              <span class="user-trigger-name" id="userTriggerName">User</span>
+              <span class="chevron" style="transition:transform .2s;" aria-hidden="true">▼</span>
+            </button>
+
+            <div class="user-dropdown-menu" id="userDropdownMenu" role="menu">
+              <!-- User info header -->
+              <div class="dropdown-info">
+                <div class="dropdown-info-name"  id="dropdownName">—</div>
+                <div class="dropdown-info-email" id="dropdownEmail">—</div>
+              </div>
+              <!-- Only: Profile + Logout (no Dashboard/History per request) -->
+              <a href="profile.html" class="dropdown-link" role="menuitem">👤 &nbsp;Profile</a>
+              <div class="dropdown-sep"></div>
+              <button class="dropdown-link danger" id="logoutBtn" role="menuitem">🚪 &nbsp;Logout</button>
+            </div>
+          </div>
+
+          <!-- Login + Register -->
+          <div id="navAuthButtons" style="display:flex;align-items:center;gap:8px;">
+            <a href="login.html"    class="btn-nav-login">Login</a>
+            <a href="register.html" class="btn-nav-register">Register</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════
+       MAIN — two-column layout
+  ═══════════════════════════════════════ -->
+  <main style="padding-top:64px;">
+    <div class="container">
+
+      <!-- ── HOME LAYOUT ── -->
+      <div id="homeLayout">
+        <div class="home-layout">
+
+          <!-- ══ LEFT COLUMN ══ -->
+          <div class="home-left">
+
+            <!-- Hero banner — NO Start Quiz / View Dashboard buttons, replaced with quote -->
+            <section class="hero-banner anim-hero" aria-labelledby="heroTitle">
+
+              <div class="hero-left">
+                <div class="hero-pill" aria-hidden="true">✨ Practice Smarter with AI</div>
+
+                <h1 class="hero-heading" id="heroTitle">
+                  Your Learning<br>
+                  Partner for <span class="hero-gradient">Success</span>
+                </h1>
+
+                <p class="hero-desc">
+                  AI-powered quizzes for aptitude, reasoning, verbal ability
+                  and technical subjects. Practice, learn and improve with
+                  personalized insights.
+                </p>
+
+                <!-- Motivational quote instead of buttons -->
+                <div class="hero-quote">
+                  <strong>💬 Daily Inspiration</strong>
+                  "The expert in anything was once a beginner.
+                  Every quiz you take is one step closer to mastery."
+                </div>
+              </div>
+
+              <!-- Right illustration -->
+              <div class="hero-right" aria-hidden="true">
+                <div class="hero-illustration">
+                  <div class="hero-bulb">💡</div>
+                  <div class="hero-student">👩‍💻</div>
+                  <div class="hero-float-chips">
+                    <div class="hero-chip chip-practice chip-red">
+                      <div class="hero-chip-icon">🎯</div>
+                      <div>
+                        <div class="hero-chip-text">Practice</div>
+                        <div class="hero-chip-sub">Improve skills</div>
+                      </div>
+                    </div>
+                    <div class="hero-chip chip-learn chip-blue">
+                      <div class="hero-chip-icon">📚</div>
+                      <div>
+                        <div class="hero-chip-text">Learn</div>
+                        <div class="hero-chip-sub">Concept-based</div>
+                      </div>
+                    </div>
+                    <div class="hero-chip chip-track chip-purple">
+                      <div class="hero-chip-icon">📈</div>
+                      <div>
+                        <div class="hero-chip-text">Track Progress</div>
+                        <div class="hero-chip-sub">See your growth</div>
+                      </div>
+                    </div>
+                    <div class="hero-chip chip-achieve chip-yellow">
+                      <div class="hero-chip-icon">🏆</div>
+                      <div>
+                        <div class="hero-chip-text">Achieve Goals</div>
+                        <div class="hero-chip-sub">Be placement ready</div>
+                      </div>
+                    </div>
+                    <span class="hero-sparkle sparkle-1" aria-hidden="true">✦</span>
+                    <span class="hero-sparkle sparkle-2" aria-hidden="true">✦</span>
+                    <span class="hero-sparkle sparkle-3" aria-hidden="true">✦</span>
+                  </div>
+                </div>
+              </div>
+
+            </section>
+
+            <!-- Domain section -->
+            <section class="domains-section anim-domains" id="domainsSection" aria-label="Choose a domain">
+
+              <div class="domains-header">
+                <h2 class="domains-title">Choose a Domain</h2>
+                <p class="domains-subtitle">Select a domain to start practicing and improve your skills</p>
+              </div>
+
+              <!-- Skeletons -->
+              <div class="domains-grid" id="skeletonGrid" aria-hidden="true">
+                <div class="domain-skeleton"><div class="skeleton sk-icon"></div><div><div class="skeleton sk-line1"></div><div class="skeleton sk-line2"></div><div class="skeleton sk-badge"></div></div></div>
+                <div class="domain-skeleton"><div class="skeleton sk-icon"></div><div><div class="skeleton sk-line1"></div><div class="skeleton sk-line2"></div><div class="skeleton sk-badge"></div></div></div>
+                <div class="domain-skeleton"><div class="skeleton sk-icon"></div><div><div class="skeleton sk-line1"></div><div class="skeleton sk-line2"></div><div class="skeleton sk-badge"></div></div></div>
+                <div class="domain-skeleton"><div class="skeleton sk-icon"></div><div><div class="skeleton sk-line1"></div><div class="skeleton sk-line2"></div><div class="skeleton sk-badge"></div></div></div>
+              </div>
+
+              <!-- Real cards -->
+              <div class="domains-grid" id="domainsGrid" style="display:none;" role="list"></div>
+
+              <!-- Error -->
+              <div class="home-error" id="domainsError" style="display:none;" role="alert">
+                <div class="home-error-icon" aria-hidden="true">⚠️</div>
+                <h3>Could not load domains</h3>
+                <p>Make sure the server is running.</p>
+                <button class="btn-hero-primary" id="retryDomainsBtn" style="margin:0 auto;">Retry</button>
+              </div>
+
+            </section>
+
+          </div><!-- /home-left -->
+
+          <!-- ══ RIGHT SIDEBAR ══ -->
+          <aside class="home-sidebar anim-sidebar" aria-label="Your progress">
+
+            <!-- Welcome + stats — shows real username -->
+            <div class="sidebar-welcome">
+              <div class="welcome-heading">
+                Welcome Back,<br>
+                <!-- JS replaces content of this span with real name -->
+                <span class="welcome-user" id="welcomeUserSpan">
+                  <span class="welcome-user-name" id="welcomeName">User</span> 👋
+                </span>
+              </div>
+              <div class="welcome-sub">Keep going! You're doing great.</div>
+
+              <div class="sidebar-stats-grid" id="statsGrid">
+                <div class="sstat">
+                  <div class="sstat-icon" aria-hidden="true">📖</div>
+                  <div class="sstat-value" id="statQuizzes">—</div>
+                  <div class="sstat-label">Quizzes Taken</div>
+                </div>
+                <div class="sstat">
+                  <div class="sstat-icon" aria-hidden="true">📊</div>
+                  <div class="sstat-value" id="statAvgScore">—</div>
+                  <div class="sstat-label">Average Score</div>
+                </div>
+                <div class="sstat">
+                  <div class="sstat-icon" aria-hidden="true">🎯</div>
+                  <div class="sstat-value" id="statQuestions">—</div>
+                  <div class="sstat-label">Questions Solved</div>
+                </div>
+                <div class="sstat">
+                  <div class="sstat-icon" aria-hidden="true">🏆</div>
+                  <div class="sstat-value" id="statBestScore">—</div>
+                  <div class="sstat-label">Best Score</div>
+                </div>
+              </div>
+
+              <div class="stats-guest" id="statsGuestMsg" style="display:none;">
+                <a href="login.html" style="color:var(--color-primary);font-weight:600;">Log in</a>
+                to see your stats
+              </div>
+            </div>
+
+            <!-- Recent Activity (renamed from Continue Learning) -->
+            <div class="continue-card">
+              <div class="cc-header">
+                <span class="cc-title">Recent Activity</span>
+                <a href="history.html" class="cc-view-all">View All</a>
+              </div>
+
+              <div id="continueContent">
+                <div class="cc-empty" id="ccEmpty">
+                  No quizzes yet.<br>
+                  <a href="#domainsSection" class="cc-btn"
+                    style="display:inline-block;width:auto;margin-top:10px;padding:8px 18px;"
+                    onclick="document.getElementById('domainsSection').scrollIntoView({behavior:'smooth'});return false;">
+                    Start Your First Quiz →
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Motivational card — NO "Take a Quiz Now" button -->
+            <div class="motivational-card" role="complementary" aria-label="Motivational message">
+              <span class="motiv-trophy" aria-hidden="true">🏆</span>
+              <div class="motiv-sparkles" aria-hidden="true">
+                <span>✦</span><span>✦</span><span>✦</span>
+              </div>
+              <div class="motiv-title">Small Steps, Big Results!</div>
+              <p class="motiv-sub">Keep practicing, keep improving, keep going.</p>
+              <!-- Button removed as requested — replaced with a tagline -->
+              <div class="motiv-quote-line">
+                <span>✨</span>
+                <span>Every quiz makes you better</span>
+                <span>✨</span>
+              </div>
+            </div>
+
+          </aside>
+
+        </div><!-- /home-layout -->
+      </div><!-- /homeLayout -->
+
+      <!-- ── SUBJECT SELECTION VIEW ── -->
+      <div class="subjects-view" id="subjectsView" aria-label="Select a subject" aria-live="polite">
+
+        <button class="back-btn" id="backBtn" aria-label="Back to domains">
+          ← Back to Domains
+        </button>
+
+        <div class="subjects-banner" id="subjectsBanner">
+          <span class="subjects-banner-icon" id="subjectsDomainIcon" aria-hidden="true"></span>
+          <div>
+            <div class="subjects-banner-name" id="subjectsDomainName"></div>
+            <div class="subjects-banner-desc" id="subjectsDomainDesc"></div>
+          </div>
+          <span class="subjects-banner-pill" id="subjectsCountPill"></span>
+        </div>
+
+        <div class="subjects-grid" id="subjectsGrid" role="list"></div>
+
+        <div class="home-error" id="subjectsError" style="display:none;" role="alert">
+          <div class="home-error-icon" aria-hidden="true">⚠️</div>
+          <h3>Could not load subjects</h3>
+          <p>Please try again.</p>
+          <button class="btn-hero-primary" id="retrySubjectsBtn" style="margin:0 auto;">Retry</button>
+        </div>
+
+      </div>
+
+    </div><!-- /container -->
+  </main>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/home.js"></script>
+</body>
+</html>

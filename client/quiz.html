@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz — QuizMind AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/quiz.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav style="position:fixed;top:0;left:0;right:0;height:64px;background:#fff;
+    border-bottom:1px solid #E2E8F0;box-shadow:0 1px 0 rgba(0,0,0,.04);
+    display:flex;align-items:center;z-index:1000;" role="navigation">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;height:100%;">
+      <a href="home.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;">
+        <div style="width:32px;height:32px;background:linear-gradient(135deg,#7C3AED,#6C63FF);
+             border-radius:8px;display:flex;align-items:center;justify-content:center;
+             font-size:1rem;color:#fff;" aria-hidden="true">🧠</div>
+        <span style="font-weight:800;font-size:16px;">
+          <span style="color:#0F172A;">QuizMind</span>
+          <span style="color:#6C63FF;"> AI</span>
+        </span>
+      </a>
+      <!-- Subject + timer in navbar -->
+      <div style="display:flex;align-items:center;gap:16px;">
+        <span id="navSubject" style="font-size:14px;font-weight:600;color:#0F172A;"></span>
+        <div class="quiz-timer" id="timerDisplay" style="display:none;" role="timer" aria-live="polite">
+          ⏱ <span id="timerText">00:00</span>
+        </div>
+      </div>
+      <!-- Question progress -->
+      <span id="navProgress" style="font-size:13px;font-weight:500;color:#64748B;"></span>
+    </div>
+  </nav>
+
+  <main class="quiz-take-page" role="main">
+    <div class="quiz-take-container">
+
+      <!-- Loading state -->
+      <div id="loadingState" style="text-align:center;padding:80px 0;">
+        <div class="spinner spinner-lg" style="margin:0 auto;"></div>
+        <p style="margin-top:16px;color:#64748B;font-size:14px;font-weight:500;">
+          Loading your quiz…
+        </p>
+      </div>
+
+      <!-- Quiz content (hidden until loaded) -->
+      <div id="quizContent" style="display:none;">
+
+        <!-- Overall progress bar -->
+        <div class="quiz-progress-wrap" role="progressbar"
+          aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="progressBarWrap">
+          <div class="quiz-progress-fill" id="progressBar" style="width:0%"></div>
+        </div>
+
+        <!-- Question card -->
+        <div class="question-card" id="questionCard">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <span style="font-size:13px;font-weight:600;color:#6C63FF;" id="questionLabel">
+              Question 1 of 10
+            </span>
+            <span class="badge badge-medium" id="difficultyBadge"></span>
+          </div>
+
+          <p class="question-text" id="questionText">Loading question…</p>
+
+          <div class="options-list" id="optionsList" role="radiogroup" aria-label="Answer options">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Navigation row -->
+        <div class="quiz-nav-row">
+          <button class="btn-quiz-nav btn-quiz-prev" id="prevBtn"
+            disabled aria-label="Previous question">
+            ← Previous
+          </button>
+
+          <div style="display:flex;align-items:center;gap:8px;">
+            <!-- Question palette (desktop) -->
+            <div id="paletteMini" style="display:flex;gap:4px;flex-wrap:wrap;max-width:300px;"></div>
+          </div>
+
+          <button class="btn-quiz-nav btn-quiz-next" id="nextBtn" aria-label="Next question">
+            Next →
+          </button>
+        </div>
+
+        <!-- Submit button (shown on last question) -->
+        <div style="text-align:center;margin-top:20px;">
+          <button class="btn-quiz-nav btn-quiz-submit" id="submitBtn"
+            style="display:none;padding:12px 40px;font-size:15px;" aria-label="Submit quiz">
+            Submit Quiz ✓
+          </button>
+        </div>
+
+      </div><!-- /quizContent -->
+
+      <!-- Time's up overlay -->
+      <div id="timesUpOverlay" style="display:none;position:fixed;inset:0;
+        background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;
+        z-index:9999;" role="alertdialog" aria-label="Time's up">
+        <div style="background:#fff;border-radius:20px;padding:40px;text-align:center;
+          max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,.3);">
+          <div style="font-size:3rem;margin-bottom:12px;" aria-hidden="true">⏰</div>
+          <h2 style="font-size:22px;font-weight:800;color:#0F172A;margin-bottom:8px;">Time's Up!</h2>
+          <p style="color:#64748B;font-size:14px;margin-bottom:24px;">
+            Your quiz will be submitted automatically.
+          </p>
+          <div class="spinner" style="margin:0 auto;"></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/quiz.js"></script>
+</body>
+</html>

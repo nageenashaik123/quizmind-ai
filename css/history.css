@@ -1,0 +1,504 @@
+/* ============================================================
+   QuizMind AI — Quiz History Page CSS
+   ============================================================ */
+
+.history-page {
+  min-height: 100vh;
+  padding-top: 64px;
+  background: #F7F9FF;
+}
+
+.history-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+
+/* ── Page header ── */
+.history-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.history-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: -0.02em;
+}
+
+.history-subtitle {
+  font-size: 14px;
+  color: #64748B;
+  margin-top: 4px;
+}
+
+/* ── Filters bar ── */
+.filters-bar {
+  background: #fff;
+  border: 1px solid #E8EAF6;
+  border-radius: 14px;
+  padding: 16px 18px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(108,92,231,.06);
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+  min-width: 130px;
+}
+
+.filter-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: #64748B;
+}
+
+.filter-select {
+  padding: 8px 12px;
+  border: 1.5px solid #E8EAF6;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #0F172A;
+  background: #F8F9FF;
+  cursor: pointer;
+  outline: none;
+  transition: border-color .15s;
+  font-family: inherit;
+}
+
+.filter-select:focus { border-color: #6C63FF; }
+
+.filter-input {
+  padding: 8px 12px;
+  border: 1.5px solid #E8EAF6;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #0F172A;
+  background: #F8F9FF;
+  outline: none;
+  transition: border-color .15s;
+  font-family: inherit;
+  width: 100%;
+}
+
+.filter-input:focus { border-color: #6C63FF; }
+
+.filter-actions {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+
+.btn-filter-apply {
+  padding: 8px 18px;
+  background: linear-gradient(135deg, #7C3AED, #6C63FF);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity .15s;
+  white-space: nowrap;
+}
+.btn-filter-apply:hover { opacity: .9; }
+
+.btn-filter-clear {
+  padding: 8px 14px;
+  background: #fff;
+  color: #475569;
+  border: 1.5px solid #E8EAF6;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color .15s, color .15s;
+  white-space: nowrap;
+}
+.btn-filter-clear:hover { border-color: #6C63FF; color: #6C63FF; }
+
+/* Active filter badges */
+.active-filters {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.filter-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #EDE9FE;
+  color: #7C3AED;
+  border-radius: 50px;
+  padding: 3px 10px 3px 8px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.filter-badge-remove {
+  background: none;
+  border: none;
+  color: #7C3AED;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 0;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Stats summary (above list) ── */
+.history-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.history-stat {
+  background: #fff;
+  border: 1px solid #E8EAF6;
+  border-radius: 12px;
+  padding: 14px 14px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(108,92,231,.05);
+}
+
+.history-stat-value {
+  font-size: 22px;
+  font-weight: 800;
+  color: #0F172A;
+  line-height: 1;
+}
+
+.history-stat-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: #94A3B8;
+  margin-top: 4px;
+}
+
+/* ── Attempt cards ── */
+.attempts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.attempt-card {
+  background: #fff;
+  border: 1px solid #E8EAF6;
+  border-radius: 16px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 2px 8px rgba(108,92,231,.05);
+  transition: transform .2s, box-shadow .2s, border-color .15s;
+}
+
+.attempt-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(108,92,231,.12);
+  border-color: rgba(108,92,231,.2);
+}
+
+/* Score ring */
+.attempt-score-ring {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-weight: 800;
+  font-size: 14px;
+  color: #fff;
+  line-height: 1;
+}
+
+.score-ring-high   { background: linear-gradient(135deg, #059669, #10B981); box-shadow: 0 3px 10px rgba(16,185,129,.3); }
+.score-ring-medium { background: linear-gradient(135deg, #7C3AED, #6C63FF); box-shadow: 0 3px 10px rgba(108,92,231,.3); }
+.score-ring-low    { background: linear-gradient(135deg, #DC2626, #EF4444); box-shadow: 0 3px 10px rgba(239,68,68,.25); }
+
+/* Attempt info */
+.attempt-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.attempt-subject {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.attempt-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.attempt-meta-item {
+  font-size: 12px;
+  color: #64748B;
+  font-weight: 500;
+}
+
+.attempt-meta-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #CBD5E1;
+  flex-shrink: 0;
+}
+
+.attempt-date {
+  font-size: 11px;
+  color: #94A3B8;
+  margin-top: 6px;
+}
+
+/* Stats mini */
+.attempt-stats {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.attempt-stat-mini {
+  text-align: center;
+  min-width: 36px;
+}
+
+.attempt-stat-mini-value {
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.attempt-stat-mini-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: #94A3B8;
+  margin-top: 2px;
+}
+
+.stat-correct { color: #059669; }
+.stat-wrong   { color: #DC2626; }
+.stat-skip    { color: #94A3B8; }
+
+/* Attempt actions */
+.attempt-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.btn-attempt {
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  transition: all .15s;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-attempt-primary {
+  background: linear-gradient(135deg, #7C3AED, #6C63FF);
+  color: #fff;
+  border: none;
+  box-shadow: 0 2px 6px rgba(108,92,231,.25);
+}
+.btn-attempt-primary:hover { opacity: .9; text-decoration: none; }
+
+.btn-attempt-secondary {
+  background: #fff;
+  color: #475569;
+  border: 1.5px solid #E8EAF6;
+}
+.btn-attempt-secondary:hover { border-color: #6C63FF; color: #6C63FF; text-decoration: none; }
+
+/* ── Empty state ── */
+.history-empty {
+  text-align: center;
+  padding: 64px 24px;
+  background: #fff;
+  border: 1px solid #E8EAF6;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(108,92,231,.05);
+}
+
+.history-empty-icon { font-size: 3.5rem; margin-bottom: 16px; }
+
+.history-empty h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 8px;
+}
+
+.history-empty p {
+  font-size: 14px;
+  color: #64748B;
+  margin-bottom: 24px;
+}
+
+/* ── Loading skeleton ── */
+.attempt-skeleton {
+  background: #fff;
+  border: 1px solid #E8EAF6;
+  border-radius: 16px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.sk-circle { width: 56px; height: 56px; border-radius: 50%; flex-shrink: 0; }
+.sk-body   { flex: 1; }
+.sk-title  { width: 50%; height: 16px; margin-bottom: 8px; }
+.sk-meta   { width: 70%; height: 12px; }
+
+/* ── Pagination ── */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 28px;
+}
+
+.page-btn {
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1.5px solid #E8EAF6;
+  background: #fff;
+  color: #475569;
+  transition: all .15s;
+}
+.page-btn:hover:not(:disabled) { border-color: #6C63FF; color: #6C63FF; }
+.page-btn:disabled { opacity: .4; cursor: not-allowed; }
+.page-btn.active { background: #6C63FF; color: #fff; border-color: #6C63FF; }
+
+.page-info {
+  font-size: 13px;
+  color: #64748B;
+  font-weight: 500;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .history-summary   { grid-template-columns: repeat(2, 1fr); }
+  .attempt-card      { flex-wrap: wrap; gap: 12px; }
+  .attempt-stats     { display: none; }
+  .attempt-actions   { flex-direction: row; }
+  .filters-bar       { gap: 8px; }
+}
+
+@media (max-width: 480px) {
+  .history-summary { grid-template-columns: repeat(2, 1fr); }
+  .attempt-score-ring { width: 48px; height: 48px; font-size: 13px; }
+}
+
+/* Skeleton shimmer */
+.skeleton {
+  background: linear-gradient(90deg, #f0f2ff 25%, #e8eaf5 50%, #f0f2ff 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: 8px;
+}
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+/* ══ Phase 17 Polish — History ══ */
+
+@keyframes pageEnter {
+  from { opacity:0; transform:translateY(14px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* Page header */
+.history-header {
+  animation: pageEnter .4s ease both;
+}
+
+/* Summary tiles staggered */
+.history-stat {
+  animation: pageEnter .4s ease both;
+}
+.history-summary .history-stat:nth-child(1) { animation-delay:.05s; }
+.history-summary .history-stat:nth-child(2) { animation-delay:.1s;  }
+.history-summary .history-stat:nth-child(3) { animation-delay:.15s; }
+.history-summary .history-stat:nth-child(4) { animation-delay:.2s;  }
+
+/* Filters bar */
+.filters-bar {
+  animation: pageEnter .4s ease both;
+  animation-delay: .1s;
+  opacity: 0;
+}
+
+/* Attempt cards staggered */
+.attempt-card {
+  animation: pageEnter .35s ease both;
+  opacity: 0;
+}
+.attempt-card:nth-child(1) { animation-delay:.05s; }
+.attempt-card:nth-child(2) { animation-delay:.1s; }
+.attempt-card:nth-child(3) { animation-delay:.15s; }
+.attempt-card:nth-child(4) { animation-delay:.2s; }
+.attempt-card:nth-child(5) { animation-delay:.25s; }
+.attempt-card:nth-child(n+6) { animation-delay:.3s; }
+
+/* Score ring pop */
+.attempt-score-ring {
+  transition: transform .2s cubic-bezier(.34,1.56,.64,1);
+}
+.attempt-card:hover .attempt-score-ring {
+  transform: scale(1.1);
+}
+
+/* Action buttons */
+.btn-attempt {
+  transition: transform .15s ease, box-shadow .15s ease, opacity .15s;
+}
+.btn-attempt:hover { transform: translateY(-1px); }
+.btn-attempt:active { transform: translateY(0) scale(.97); }

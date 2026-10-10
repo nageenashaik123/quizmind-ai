@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — QuizMind AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/auth.css" />
+</head>
+<body>
+
+  <div class="auth-page">
+    <div class="auth-card-wrapper">
+      <div class="auth-card">
+
+        <!-- Brand header — matches reference exactly -->
+        <div class="auth-brand-header">
+          <div class="auth-brand-logo" aria-hidden="true">🧠</div>
+          <div class="auth-brand-name">
+            QuizMind <span>AI</span>
+          </div>
+        </div>
+
+        <h1 class="auth-card-title">Welcome Back</h1>
+        <p class="auth-card-subtitle">Login to continue your learning journey</p>
+
+        <!-- Alert -->
+        <div id="authAlert" class="auth-alert" role="alert" aria-live="polite"></div>
+
+        <form class="auth-form" id="loginForm" novalidate>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label class="form-label" for="email">Email address</label>
+            <div class="input-with-icon">
+              <span class="input-icon" aria-hidden="true">✉</span>
+              <input
+                class="form-input"
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                autocomplete="email"
+                required
+                aria-required="true"
+                aria-describedby="emailError"
+              />
+            </div>
+            <span class="form-error" id="emailError" role="alert"></span>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label class="form-label" for="password">Password</label>
+            <div class="input-with-icon">
+              <span class="input-icon" aria-hidden="true">🔒</span>
+              <input
+                class="form-input"
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+                aria-required="true"
+                aria-describedby="passwordError"
+              />
+              <button type="button" class="input-toggle" id="togglePassword" aria-label="Toggle password visibility">👁</button>
+            </div>
+            <span class="form-error" id="passwordError" role="alert"></span>
+          </div>
+
+          <!-- Remember me + Forgot password -->
+          <div class="auth-extras">
+            <label class="auth-checkbox-label">
+              <input type="checkbox" id="rememberMe" />
+              Remember me
+            </label>
+            <a href="forgot-password.html" class="forgot-link">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full" id="submitBtn">
+            Login
+          </button>
+
+        </form>
+
+        <div class="auth-form-footer">
+          Don't have an account? <a href="register.html">Sign up</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+</body>
+</html>

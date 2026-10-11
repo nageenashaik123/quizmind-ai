@@ -285,6 +285,10 @@ Request → Gemini 3.8 Flash (primary, ~37s)
 
 ## 🌍 Deployment
 
+### Live application
+- Frontend: [https://quizmind-ai-three.vercel.app](https://quizmind-ai-three.vercel.app)
+- Backend health: [https://quizmind-ai-backend-jsp2.onrender.com/api/health](https://quizmind-ai-backend-jsp2.onrender.com/api/health)
+
 ### Frontend → Vercel
 1. Push `client/`, `css/`, `js/` to GitHub
 2. Connect repo to Vercel

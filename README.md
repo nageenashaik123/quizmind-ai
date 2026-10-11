@@ -311,11 +311,9 @@ Request → Gemini 3.8 Flash (primary, ~37s)
 
 ---
 
-## 📸 Screenshots
 
-*(Add screenshots after deployment)*
 
----
+
 
 ## 🗺 Roadmap
 
@@ -329,11 +327,11 @@ Request → Gemini 3.8 Flash (primary, ~37s)
 
 ## 👩‍💻 Author
 
+Shaik Nageena
 Built as a B.Tech final-year portfolio project demonstrating:
 **HTML/CSS/JS → Node.js/Express → PostgreSQL → JWT Auth → AI API → Email → Cloud Deployment**
 
 ---
 
-## 📄 License
-
-MIT — free to use, modify and distribute.
+## Contact
+For questions or improvements, feel free to extend the project or open an issue in the repository.

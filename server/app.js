@@ -13,7 +13,35 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({
-  origin: process.env.FRONTEND_URL || "*",
+  origin: function(origin, callback) {
+    // Allow requests with no origin (mobile apps, curl, Postman)
+    if (!origin) return callback(null, true);
+
+    const allowed = [
+      "https://quizmind-ai-three.vercel.app",
+      "http://localhost:5500",
+      "http://127.0.0.1:5500",
+      "http://localhost:3000",
+      // Allow any Vercel preview deployment
+      /\.vercel\.app$/,
+    ];
+
+    const isAllowed = allowed.some(a =>
+      typeof a === "string" ? a === origin : a.test(origin)
+    );
+
+    // Also allow custom FRONTEND_URL from env
+    const envUrl = process.env.FRONTEND_URL;
+    if (envUrl && envUrl !== "*" && origin === envUrl) return callback(null, true);
+    if (envUrl === "*") return callback(null, true);
+
+    if (isAllowed) {
+      callback(null, true);
+    } else {
+      console.warn(`[cors] Blocked origin: ${origin}`);
+      callback(null, false);
+    }
+  },
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,

@@ -1,5 +1,5 @@
 ﻿/* ============================================================
-   QuizMind AI â€” Auth JavaScript  (Phase 6 â€” Real OTP)
+   QuizMind AI Auth JavaScript  (Phase 6 - Real OTP)
    Handles: register, login, OTP verification, resend,
             password toggles, strength indicator, logout
    Depends on: js/api.js (must be loaded first)
@@ -48,7 +48,7 @@ function initLogin() {
     }
     if (hasError) return;
 
-    setButtonLoading("submitBtn", "Logging inâ€¦");
+    setButtonLoading("submitBtn", "Logging in");
 
     try {
       const data = await apiPost("/auth/login", { email, password }, { auth: false });
@@ -120,7 +120,7 @@ function initRegister() {
     }
     if (hasError) return;
 
-    setButtonLoading("submitBtn", "Creating accountâ€¦");
+    setButtonLoading("submitBtn", "Creating account");
 
     try {
       const data = await apiPost("/auth/register", { name, email, password, confirmPassword }, { auth: false });
@@ -139,7 +139,7 @@ function initRegister() {
 }
 
 /* ============================================================
-   VERIFY OTP  (Phase 6 â€” real implementation)
+   VERIFY OTP  (Phase 6 - real implementation)
    ============================================================ */
 function initVerifyOtp() {
   const email = sessionStorage.getItem("pendingEmail") || "";
@@ -185,12 +185,12 @@ function initVerifyOtp() {
       return;
     }
 
-    setButtonLoading("submitBtn", "Verifyingâ€¦");
+    setButtonLoading("submitBtn", "Verifying");
 
     try {
       await apiPost("/auth/verify-otp", { email, otp, purpose: "REGISTER" }, { auth: false });
 
-      // Success â€” show success view
+      // Success - show success view
       const verifyView  = document.getElementById("verifyView");
       const successView = document.getElementById("successView");
       if (verifyView)  verifyView.style.display  = "none";
@@ -243,10 +243,10 @@ function initVerifyOtp() {
 }
 
 /* ============================================================
-   FORGOT PASSWORD  (Phase 7 â€” real implementation)
+   FORGOT PASSWORD  (Phase 7 - real implementation)
    Two-step flow on forgot-password.html:
-     Step 1 (#emailView)  â€” enter email â†’ POST /forgot-password
-     Step 2 (#resetView)  â€” enter OTP + new password â†’ POST /reset-password
+     Step 1 (#emailView)  "” enter email â†’ POST /forgot-password
+     Step 2 (#resetView)  "” enter OTP + new password â†’ POST /reset-password
    ============================================================ */
 function initForgotPassword() {
   // â”€â”€ Step 1: email form â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -269,7 +269,7 @@ function initForgotPassword() {
       return;
     }
 
-    setButtonLoading("submitBtn", "Sending codeâ€¦");
+    setButtonLoading("submitBtn", "Sending code");
 
     try {
       await apiPost("/auth/forgot-password", { email }, { auth: false });
@@ -351,7 +351,7 @@ function initForgotPassword() {
 
     if (hasError) return;
 
-    setButtonLoading("resetSubmitBtn", "Resetting passwordâ€¦");
+    setButtonLoading("resetSubmitBtn", "Resetting password");
 
     try {
       await apiPost("/auth/reset-password", {
@@ -406,7 +406,7 @@ function initForgotPassword() {
 }
 
 /* ============================================================
-   RESET PASSWORD  (Phase 7 â€” standalone page, e.g. from email link)
+   RESET PASSWORD  (Phase 7 - standalone page, e.g. from email link)
    reset-password.html is used when arriving directly (not via
    forgot-password.html two-step flow). It reads resetEmail from
    sessionStorage; if not present it redirects to forgot-password.
@@ -458,14 +458,14 @@ function initResetPassword() {
     }
     if (hasError) return;
 
-    // This page requires a previously verified OTP â€” get it from sessionStorage
+    // This page requires a previously verified OTP - get it from sessionStorage
     const otp = sessionStorage.getItem("resetOtp") || "";
     if (!otp) {
       showAlert("authAlert", "Session expired. Please request a new reset code.", "error");
       return;
     }
 
-    setButtonLoading("submitBtn", "Resetting passwordâ€¦");
+    setButtonLoading("submitBtn", "Resetting password");
 
     try {
       await apiPost("/auth/reset-password", {
@@ -576,4 +576,3 @@ function startResendTimer(btnId, timerId, seconds) {
     setTimeout(() => showAlert("authAlert", msg, "success"), 100);
   }
 })();
-

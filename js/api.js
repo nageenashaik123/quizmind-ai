@@ -311,7 +311,7 @@ function clearAllErrors(formId) {
  * @param {string} btnId
  * @param {string} [loadingText]
  */
-function setButtonLoading(btnId, loadingText = "Please wait...") {
+function setButtonLoading(btnId, loadingText = "Please wait") {
   const btn = document.getElementById(btnId);
   if (!btn) return;
   btn.disabled = true;
